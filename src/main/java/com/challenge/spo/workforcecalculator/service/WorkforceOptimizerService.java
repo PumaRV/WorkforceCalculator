@@ -4,6 +4,7 @@ import com.challenge.spo.workforcecalculator.model.CleanerCrew;
 import com.challenge.spo.workforcecalculator.model.Contract;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,6 +14,12 @@ import java.util.List;
 public class WorkforceOptimizerService {
 
     private static final Logger LOGGER = LogManager.getLogger();
+
+    @Value("${structure.size.limit}")
+    private int structureLimit;
+
+    @Value("${rooms.size.limit}")
+    private int roomsLimit;
 
     public List<CleanerCrew> getCleanerCrewsFromContract(final Contract contract) {
 
@@ -33,21 +40,21 @@ public class WorkforceOptimizerService {
     private boolean isValidContract(final Contract contract) {
         final int seniorCapacity = contract.getSeniorCapacity();
         final int juniorCapacity = contract.getJuniorCapacity();
-        if (juniorCapacity > seniorCapacity) {
-            LOGGER.error("Junior capacity is greater and Senior capacity");
+        if (juniorCapacity >= seniorCapacity) {
+            LOGGER.error("Junior capacity is greater or equal than Senior capacity");
             return false;
         }
-        if (seniorCapacity < 0 || juniorCapacity < 0) {
-            LOGGER.error("Negative cleaning capacities are not allowed");
+        if (seniorCapacity <= 0 || juniorCapacity <= 0) {
+            LOGGER.error("Cleaning capacities must be greater than zero");
             return false;
         }
-        if (contract.getRooms().length > 100) {
+        if (contract.getRooms().length > structureLimit) {
             LOGGER.error("Permitted amount of structures exceeded");
             return false;
         }
 
         for (int rooms : contract.getRooms()) {
-            if (rooms > 100) {
+            if (rooms > roomsLimit) {
                 LOGGER.error("Permitted amount of rooms per structure exceeded");
                 return false;
             }

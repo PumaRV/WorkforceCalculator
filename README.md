@@ -39,6 +39,7 @@ ALL of the fields are required.
 Returns: 
 200 - In case of success 
 422 - If any of the fields fails validation
+400 - If the Json body is invalid
 
 Body: 
 [
@@ -65,7 +66,7 @@ Where each pair of senior and junior values represent the optimal allocation for
 Additional Requirements: 
 - The project needs to be developed in Java 8 
 - The project needs to use Spring framework
-- The maximum size for the structures is 100
-- The maximum size for the rooms in any giving structure is 100
+- The maximum size for the structures is 100 (Configurable in application.properties)
+- The maximum size for the rooms in any giving structure is 100 (Configurable in application.properties)
 - Senior cleaning capacity must always be greater than junior cleaning capacity
 - There needs to be, at least, one senior cleaner in every cleaning crew
