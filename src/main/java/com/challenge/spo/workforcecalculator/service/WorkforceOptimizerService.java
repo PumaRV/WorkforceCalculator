@@ -61,15 +61,8 @@ public class WorkforceOptimizerService {
         int actualJuniors = 0;
 
         if (neededCapacity > 0) {
-            int maxSeniors = neededCapacity / seniorCapacity;
-            if (neededCapacity % seniorCapacity > 0) {
-                maxSeniors++;
-            }
-
-            int maxJuniors = neededCapacity / juniorCapacity;
-            if (neededCapacity % juniorCapacity > 0) {
-                maxJuniors++;
-            }
+            final int maxSeniors = getMaxCleanersForCapacity(neededCapacity, seniorCapacity);
+            final int maxJuniors = getMaxCleanersForCapacity(neededCapacity, juniorCapacity);
 
             int optimalWasteCapacity = -1;
 
@@ -89,6 +82,14 @@ public class WorkforceOptimizerService {
             }
         }
         return new CleanerCrew(actualSeniors, actualJuniors);
+    }
+
+    private int getMaxCleanersForCapacity(final int neededCapacity, final int cleanCapacity){
+        int maxMembers = neededCapacity / cleanCapacity;
+        if(neededCapacity % cleanCapacity > 0){
+            maxMembers++;
+        }
+        return  maxMembers;
     }
 }
 
