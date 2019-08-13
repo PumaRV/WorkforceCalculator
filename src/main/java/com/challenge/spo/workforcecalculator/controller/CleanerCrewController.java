@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class ContractController {
+public class CleanerCrewController {
     private static final Logger LOGGER = LogManager.getLogger();
     private final WorkforceOptimizerService workforceOptimizerService;
 
-    public ContractController(final WorkforceOptimizerService workforceOptimizerService) {
+    public CleanerCrewController(final WorkforceOptimizerService workforceOptimizerService) {
         this.workforceOptimizerService = workforceOptimizerService;
     }
 
-    @GetMapping(value = "/contracts", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(value = "/cleaner-crews", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
     public List<CleanerCrew> getWorkforceDistribution(@RequestBody final Contract contract, final BindingResult bindingResult) {
         if (bindingResult.hasErrors() || contract == null) {
