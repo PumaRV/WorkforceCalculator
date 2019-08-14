@@ -74,7 +74,7 @@ public class WorkforceOptimizerService {
             int optimalWasteCapacity = -1;
 
             //Find best combination of Senior and Junior Cleaners for the remaining rooms
-            for (int i = 0; i <= maxSeniors; i++) {
+            for (int i = maxSeniors; i >= 0; i--) { // reverse traverse of options to favor crews with more senior staff and thus less members
                 for (int j = 0; j <= maxJuniors; j++) {
                     int currentCapacity = (i * seniorCapacity) + (j * juniorCapacity);
                     if (currentCapacity >= neededCapacity) {
@@ -83,6 +83,9 @@ public class WorkforceOptimizerService {
                             optimalWasteCapacity = wasteCapacity;
                             actualJuniors = j;
                             actualSeniors = i + 1;
+                            if(wasteCapacity ==0){ // if wasteCapacity = 0 then this combination provides optimal assignment
+                                return new CleanerCrew(actualSeniors, actualJuniors);
+                            }
                         }
                     }
                 }
