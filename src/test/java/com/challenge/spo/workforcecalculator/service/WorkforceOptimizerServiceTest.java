@@ -36,6 +36,25 @@ public class WorkforceOptimizerServiceTest {
         assertEquals(expectedCleanerCrews, actualCleanerCrews);
     }
 
+    @Test
+    public void getCleanerCrewsFromContractSuccessfullyBigCapacity() {
+        int[] rooms = {78, 22, 5, 42, 50, 1};
+        final Contract contract = new Contract(rooms,8, 3 );
+        final List<CleanerCrew> expectedCleanerCrews = new ArrayList<>();
+        expectedCleanerCrews.add(new CleanerCrew(9,2));
+        expectedCleanerCrews.add(new CleanerCrew(2,2));
+        expectedCleanerCrews.add(new CleanerCrew(1,0));
+        expectedCleanerCrews.add(new CleanerCrew(3,6));
+        expectedCleanerCrews.add(new CleanerCrew(4,6));
+        expectedCleanerCrews.add(new CleanerCrew(1,0));
+
+        ReflectionTestUtils.setField(workforceOptimizerService, "structureLimit", 100);
+        ReflectionTestUtils.setField(workforceOptimizerService, "roomsLimit", 100);
+
+        final List<CleanerCrew> actualCleanerCrews = workforceOptimizerService.getCleanerCrewsFromContract(contract);
+        assertEquals(expectedCleanerCrews, actualCleanerCrews);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void getCleanerCrewsFromContractInvalidStructureSize() {
 
