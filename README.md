@@ -14,13 +14,14 @@ The goal is to minimize the overcapacity at every structure.
 2. Run ```$ mvn spring-boot:run``` 
 
 This will start a web server and the API will be accesible through Http://localhost:8080
+You'll be able to access a Swagger page on Http://localhost:8080 to test the endpoints, although you can test them directly as well.
 
 # Specs 
 There is a single endpoint which will consume the contract information which consist of the number of rooms for every structure, 
 the cleaning capacity of a Senior cleaner and the cleaning capacity of a Junior Cleaner. The endpoint will return the Optimal 
 combination of senior and junior cleansers for each structure. 
 
-GET /cleaner-crews
+POST /cleaner-crews
 
 This endpoint is called to get the optimal cleaner crews. It requires a body: 
 
