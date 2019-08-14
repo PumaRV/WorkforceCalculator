@@ -10,8 +10,10 @@ The goal is to minimize the overcapacity at every structure.
 - The project is built using maven. 
 
 # Running the application
-1. Run ```$ mvn clean install```
-2. Run ```$ mvn spring-boot:run``` 
+We are using Maven Wrapper to avoid maven installation. 
+
+1. Run ```$ ./mvnw clean install```
+2. Run ```$ ./mvnw spring-boot:run``` 
 
 This will start a web server and the API will be accesible through Http://localhost:8080
 You'll be able to access a Swagger page on Http://localhost:8080 to test the endpoints, although you can test them directly as well.
